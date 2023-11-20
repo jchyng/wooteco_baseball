@@ -1,4 +1,4 @@
-package baseball.model;
+package baseball.constant;
 
 public enum Rule {
     START_NUMBER(1),

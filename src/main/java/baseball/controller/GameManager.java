@@ -1,6 +1,6 @@
 package baseball.controller;
 
-import baseball.model.Rule;
+import baseball.constant.Rule;
 import baseball.service.NumberBaseballService;
 import baseball.view.InputView;
 import baseball.view.OutputView;

@@ -2,7 +2,7 @@ package baseball.service;
 
 import baseball.model.Computer;
 import baseball.model.Player;
-import baseball.model.Rule;
+import baseball.constant.Rule;
 
 public class NumberBaseballService {
     private Computer computer;

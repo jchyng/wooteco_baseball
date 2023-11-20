@@ -1,5 +1,6 @@
 package baseball.model;
 
+import baseball.constant.Rule;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,7 +82,7 @@ public class Player {
                 + Rule.START_NUMBER
                 + "-"
                 + Rule.END_NUMBER
-                + "]{" + Rule.MAX_LENGTH + "}$";
+                + "]{" + Rule.MAX_LENGTH.value() + "}$";
 
         if (!stringNumber.matches(pattern)) {
             throw new IllegalArgumentException("1~9 사이의 숫자를 3개 입력해주세요.");

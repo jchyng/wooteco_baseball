@@ -29,18 +29,18 @@ public class Player {
     public String createHintMessage() {
         StringBuilder gameResult = new StringBuilder();
 
-        if (isNothing()) {
+        if (ballCount + strikeCount == 0) {
             return BallState.낫싱.name();
         }
 
-        if (isStrike()) {
+        if (isCompleted() || strikeCount > 0 && ballCount == 0) {
             return strikeCount + BallState.스트라이크.name();
         }
 
-        if (isBall()) {
+        if (ballCount > 0) {
             gameResult.append(ballCount + BallState.볼.name());
         }
-        if (isStrikeWithBall()) {
+        if (strikeCount > 0 && ballCount > 0) {
             gameResult.append(" " + strikeCount + BallState.스트라이크.name());
         }
 
@@ -78,22 +78,6 @@ public class Player {
                 .collect(Collectors.toList());
 
         return numbers;
-    }
-
-    private boolean isNothing() {
-        return ballCount + strikeCount == 0;
-    }
-
-    private boolean isStrike() {
-        return isCompleted() || strikeCount > 0 && ballCount == 0;
-    }
-
-    private boolean isStrikeWithBall() {
-        return strikeCount > 0 && ballCount > 0;
-    }
-
-    private boolean isBall() {
-        return ballCount > 0;
     }
 
 }

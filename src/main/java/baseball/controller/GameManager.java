@@ -7,13 +7,11 @@ import baseball.view.OutputView;
 
 
 public class GameManager {
-    private InputView inputView;
-    private OutputView outputView;
-    private NumberBaseballService numberBaseballService;
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
+    private final NumberBaseballService numberBaseballService;
 
-    public GameManager(InputView inputView, OutputView outputView, NumberBaseballService numberBaseballService) {
-        this.inputView = inputView;
-        this.outputView = outputView;
+    public GameManager(NumberBaseballService numberBaseballService) {
         this.numberBaseballService = numberBaseballService;
     }
 

@@ -65,7 +65,6 @@ public class Player {
         List<Integer> numbers = number.chars()
                 .map(Character::getNumericValue).boxed()
                 .collect(Collectors.toList());
-
         return numbers;
     }
 
@@ -78,7 +77,6 @@ public class Player {
         if (strikeCount > 0 && ballCount > 0) {
             gameResult.append(" " + strikeCount + BallState.스트라이크.name());
         }
-
         return gameResult.toString();
     }
 }

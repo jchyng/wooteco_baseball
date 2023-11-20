@@ -1,4 +1,4 @@
-package baseball.constant;
+package baseball.view;
 
 public enum InputMessage {
     INPUT_NUMBER("숫자를 입력해주세요 : "),

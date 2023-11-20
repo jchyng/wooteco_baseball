@@ -1,8 +1,7 @@
 package baseball.view;
 
-import baseball.constant.ExceptionMessage;
-import baseball.constant.InputMessage;
-import baseball.constant.Rule;
+import baseball.exception.ExceptionMessage;
+import baseball.model.Rule;
 import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {

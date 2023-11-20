@@ -1,8 +1,6 @@
 package baseball.model;
 
-import baseball.constant.BallState;
-import baseball.constant.ExceptionMessage;
-import baseball.constant.Rule;
+import baseball.exception.ExceptionMessage;
 import java.util.List;
 import java.util.stream.Collectors;
 

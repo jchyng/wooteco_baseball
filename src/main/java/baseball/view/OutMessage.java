@@ -1,4 +1,6 @@
-package baseball.constant;
+package baseball.view;
+
+import baseball.model.Rule;
 
 public enum OutMessage {
     START_MESSAGE("숫자 야구 게임을 시작합니다."),

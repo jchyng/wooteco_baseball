@@ -1,5 +1,7 @@
 package baseball.model;
 
+import baseball.constant.BallState;
+import baseball.constant.ExceptionMessage;
 import baseball.constant.Rule;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,18 +42,18 @@ public class Player {
         StringBuilder gameResult = new StringBuilder();
 
         if (isNothing()) {
-            return "낫싱";
+            return BallState.낫싱.name();
         }
 
         if (isStrike()) {
-            return strikeCount + "스트라이크";
+            return strikeCount + BallState.스트라이크.name();
         }
 
         if (isBall()) {
-            gameResult.append(ballCount + "볼");
+            gameResult.append(ballCount + BallState.볼.name());
         }
         if (isStrikeWithBall()) {
-            gameResult.append(" " + strikeCount + "스트라이크");
+            gameResult.append(" " + strikeCount + BallState.스트라이크.name());
         }
 
         return gameResult.toString();
@@ -85,7 +87,7 @@ public class Player {
                 + "]{" + Rule.MAX_LENGTH.value() + "}$";
 
         if (!stringNumber.matches(pattern)) {
-            throw new IllegalArgumentException("1~9 사이의 숫자를 3개 입력해주세요.");
+            throw new IllegalArgumentException(ExceptionMessage.NUMBER_FORMAT.message());
         }
     }
 
@@ -96,7 +98,7 @@ public class Player {
             int digit = Character.getNumericValue(c);
             digitCounts[digit]++;
             if (digitCounts[digit] > 1) {
-                throw new IllegalArgumentException("각 숫자는 한 번만 나와야 합니다.");
+                throw new IllegalArgumentException(ExceptionMessage.NUMBER_DUPLICATE.message());
             }
         }
     }

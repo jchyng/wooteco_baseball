@@ -21,8 +21,8 @@ public class Player {
     }
 
     public void setNumbers(String number) {
-        validateNumberWithPattern(number);
-        validateUniqueNumber(number);
+        validatePattern(number);
+        validateDuplicate(number);
 
         this.numbers = stringToIntegerList(number);
     }
@@ -77,22 +77,22 @@ public class Player {
         return ballCount > 0;
     }
 
-    private void validateNumberWithPattern(String stringNumber) {
+    private void validatePattern(String number) {
         String pattern = "^["
                 + Rule.START_NUMBER
                 + "-"
                 + Rule.END_NUMBER
                 + "]{" + Rule.MAX_LENGTH.value() + "}$";
 
-        if (!stringNumber.matches(pattern)) {
+        if (!number.matches(pattern)) {
             throw new IllegalArgumentException(ExceptionMessage.NUMBER_FORMAT.message());
         }
     }
 
-    private void validateUniqueNumber(String stringNumber) {
+    private void validateDuplicate(String number) {
         int[] digitCounts = new int[10];
 
-        for (char c : stringNumber.toCharArray()) {
+        for (char c : number.toCharArray()) {
             int digit = Character.getNumericValue(c);
             digitCounts[digit]++;
             if (digitCounts[digit] > 1) {
@@ -101,12 +101,12 @@ public class Player {
         }
     }
 
-    private List<Integer> stringToIntegerList(String stringNumber) {
-        List<Integer> numberList = stringNumber.chars()
+    private List<Integer> stringToIntegerList(String number) {
+        List<Integer> numbers = number.chars()
                 .map(Character::getNumericValue).boxed()
                 .collect(Collectors.toList());
 
-        return numberList;
+        return numbers;
     }
 }
 

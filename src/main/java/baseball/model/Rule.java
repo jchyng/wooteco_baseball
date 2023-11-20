@@ -6,7 +6,7 @@ public enum Rule {
     MAX_LENGTH(3),
 
     RESTART_NUMBER(1),
-    EXIT_NUMBER(1),
+    EXIT_NUMBER(2),
     ;
 
     private final int value;

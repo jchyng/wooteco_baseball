@@ -11,4 +11,7 @@ public enum InputMessage {
         this.message = message;
     }
 
+    public String message() {
+        return message;
+    }
 }

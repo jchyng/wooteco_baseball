@@ -12,4 +12,7 @@ public enum OutMessage {
         this.message = message;
     }
 
+    public String message() {
+        return message;
+    }
 }

@@ -27,24 +27,13 @@ public class Player {
     }
 
     public String createHintMessage() {
-        StringBuilder gameResult = new StringBuilder();
-
         if (ballCount + strikeCount == 0) {
             return BallState.낫싱.name();
         }
-
         if (isCompleted() || strikeCount > 0 && ballCount == 0) {
             return strikeCount + BallState.스트라이크.name();
         }
-
-        if (ballCount > 0) {
-            gameResult.append(ballCount + BallState.볼.name());
-        }
-        if (strikeCount > 0 && ballCount > 0) {
-            gameResult.append(" " + strikeCount + BallState.스트라이크.name());
-        }
-
-        return gameResult.toString();
+        return getStrikeWithBall();
     }
 
     public boolean isCompleted() {
@@ -80,5 +69,17 @@ public class Player {
         return numbers;
     }
 
+    private String getStrikeWithBall(){
+        StringBuilder gameResult = new StringBuilder();
+        
+        if (ballCount > 0) {
+            gameResult.append(ballCount + BallState.볼.name());
+        }
+        if (strikeCount > 0 && ballCount > 0) {
+            gameResult.append(" " + strikeCount + BallState.스트라이크.name());
+        }
+
+        return gameResult.toString();
+    }
 }
 

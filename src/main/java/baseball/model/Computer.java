@@ -9,11 +9,15 @@ import java.util.List;
 public class Computer {
     private List<Integer> numbers;
 
+    public Computer() {
+        generateNumbers();
+    }
+
     public List<Integer> getNumbers() {
         return numbers;
     }
 
-    public void generateNumbers() {
+    private void generateNumbers() {
         numbers = new ArrayList<>();
 
         while (numbers.size() < Rule.MAX_LENGTH.value()) {

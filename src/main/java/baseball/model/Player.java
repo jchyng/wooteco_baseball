@@ -9,32 +9,22 @@ public class Player {
     private int strikeCount = 0;
     private int ballCount = 0;
 
+    public Player(String numbers) {
+        validatePattern(numbers);
+        validateDuplicate(numbers);
 
-    public void init() {
-        this.numbers = null;
-        this.strikeCount = 0;
-        this.ballCount = 0;
+        this.numbers = stringToIntegerList(numbers);
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    public void compareNumber(List<Integer> numbers) {
+        for (int i = 0; i < Rule.MAX_LENGTH.value(); i++) {
+            if (this.numbers.get(i) == numbers.get(i)) {
+                strikeCount++;
+            } else if (numbers.contains(this.numbers.get(i))) {
+                ballCount++;
+            }
+        }
     }
-
-    public void setNumbers(String number) {
-        validatePattern(number);
-        validateDuplicate(number);
-
-        this.numbers = stringToIntegerList(number);
-    }
-
-    public void addStrikeCount() {
-        this.strikeCount++;
-    }
-
-    public void addBallCount() {
-        this.ballCount++;
-    }
-
 
     public String createHintMessage() {
         StringBuilder gameResult = new StringBuilder();
@@ -61,28 +51,9 @@ public class Player {
         return strikeCount == Rule.MAX_LENGTH.value();
     }
 
-    public boolean isNothing() {
-        return ballCount + strikeCount == 0;
-    }
-
-    public boolean isStrike() {
-        return isCompleted() || strikeCount > 0 && ballCount == 0;
-    }
-
-    public boolean isStrikeWithBall() {
-        return strikeCount > 0 && ballCount > 0;
-    }
-
-    public boolean isBall() {
-        return ballCount > 0;
-    }
-
     private void validatePattern(String number) {
-        String pattern = "^["
-                + Rule.START_NUMBER
-                + "-"
-                + Rule.END_NUMBER
-                + "]{" + Rule.MAX_LENGTH.value() + "}$";
+        String pattern = "^[" + Rule.START_NUMBER.value() + "-" + Rule.END_NUMBER.value() + "]"
+                + "{" + Rule.MAX_LENGTH.value() + "}$";
 
         if (!number.matches(pattern)) {
             throw new IllegalArgumentException(ExceptionMessage.NUMBER_FORMAT.message());
@@ -108,5 +79,22 @@ public class Player {
 
         return numbers;
     }
+
+    private boolean isNothing() {
+        return ballCount + strikeCount == 0;
+    }
+
+    private boolean isStrike() {
+        return isCompleted() || strikeCount > 0 && ballCount == 0;
+    }
+
+    private boolean isStrikeWithBall() {
+        return strikeCount > 0 && ballCount > 0;
+    }
+
+    private boolean isBall() {
+        return ballCount > 0;
+    }
+
 }
 

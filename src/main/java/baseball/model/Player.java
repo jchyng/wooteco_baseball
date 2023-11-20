@@ -57,7 +57,7 @@ public class Player {
     }
 
     public boolean isCompleted() {
-        return strikeCount == Rule.MAX_LENGTH;
+        return strikeCount == Rule.MAX_LENGTH.value();
     }
 
     public boolean isNothing() {

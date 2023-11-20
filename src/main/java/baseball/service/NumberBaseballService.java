@@ -23,7 +23,7 @@ public class NumberBaseballService {
     }
 
     public void comparePlayerWithComputer() {
-        for (int i = 0; i < Rule.MAX_LENGTH; i++) {
+        for (int i = 0; i < Rule.MAX_LENGTH.value(); i++) {
             int playerNumber = player.getNumbers().get(i);
             int computerNumber = computer.getNumbers().get(i);
 

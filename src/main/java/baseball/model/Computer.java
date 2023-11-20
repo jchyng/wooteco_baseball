@@ -16,8 +16,8 @@ public class Computer {
     public void generateNumbers() {
         numbers = new ArrayList<>();
 
-        while (numbers.size() < Rule.MAX_LENGTH) {
-            int randomNumber = Randoms.pickNumberInRange(Rule.START_NUMBER, Rule.END_NUMBER);
+        while (numbers.size() < Rule.MAX_LENGTH.value()) {
+            int randomNumber = Randoms.pickNumberInRange(Rule.START_NUMBER.value(), Rule.END_NUMBER.value());
 
             if (!numbers.contains(randomNumber)) {
                 numbers.add(randomNumber);

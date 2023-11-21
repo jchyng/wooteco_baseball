@@ -1,5 +1,6 @@
 package baseball.model;
 
+import baseball.exception.ExceptionMessage;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,104 +9,75 @@ public class Player {
     private int strikeCount = 0;
     private int ballCount = 0;
 
+    public Player(String numbers) {
+        validatePattern(numbers);
+        validateDuplicate(numbers);
 
-    public void init() {
-        this.numbers = null;
-        this.strikeCount = 0;
-        this.ballCount = 0;
+        this.numbers = stringToIntegerList(numbers);
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
-    }
-
-    public void setNumbers(String number) {
-        validateNumberWithPattern(number);
-        validateUniqueNumber(number);
-
-        this.numbers = stringToIntegerList(number);
-    }
-
-    public void addStrikeCount() {
-        this.strikeCount++;
-    }
-
-    public void addBallCount() {
-        this.ballCount++;
-    }
-
-
-    public String createHintMessage() {
-        StringBuilder gameResult = new StringBuilder();
-
-        if (isNothing()) {
-            return "낫싱";
-        }
-
-        if (isStrike()) {
-            return strikeCount + "스트라이크";
-        }
-
-        if (isBall()) {
-            gameResult.append(ballCount + "볼");
-        }
-        if (isStrikeWithBall()) {
-            gameResult.append(" " + strikeCount + "스트라이크");
-        }
-
-        return gameResult.toString();
-    }
-
-    public boolean isCompleted() {
-        return strikeCount == Rule.MAX_LENGTH;
-    }
-
-    public boolean isNothing() {
-        return ballCount + strikeCount == 0;
-    }
-
-    public boolean isStrike() {
-        return isCompleted() || strikeCount > 0 && ballCount == 0;
-    }
-
-    public boolean isStrikeWithBall() {
-        return strikeCount > 0 && ballCount > 0;
-    }
-
-    public boolean isBall() {
-        return ballCount > 0;
-    }
-
-    private void validateNumberWithPattern(String stringNumber) {
-        String pattern = "^["
-                + Rule.START_NUMBER
-                + "-"
-                + Rule.END_NUMBER
-                + "]{" + Rule.MAX_LENGTH + "}$";
-
-        if (!stringNumber.matches(pattern)) {
-            throw new IllegalArgumentException("1~9 사이의 숫자를 3개 입력해주세요.");
-        }
-    }
-
-    private void validateUniqueNumber(String stringNumber) {
-        int[] digitCounts = new int[10];
-
-        for (char c : stringNumber.toCharArray()) {
-            int digit = Character.getNumericValue(c);
-            digitCounts[digit]++;
-            if (digitCounts[digit] > 1) {
-                throw new IllegalArgumentException("각 숫자는 한 번만 나와야 합니다.");
+    public void compareNumber(List<Integer> numbers) {
+        for (int i = 0; i < Rule.MAX_LENGTH.value(); i++) {
+            if (this.numbers.get(i) == numbers.get(i)) {
+                strikeCount++;
+            } else if (numbers.contains(this.numbers.get(i))) {
+                ballCount++;
             }
         }
     }
 
-    private List<Integer> stringToIntegerList(String stringNumber) {
-        List<Integer> numberList = stringNumber.chars()
+    public String createHintMessage() {
+        if (ballCount + strikeCount == 0) {
+            return BallState.낫싱.name();
+        }
+        if (isCompleted() || strikeCount > 0 && ballCount == 0) {
+            return strikeCount + BallState.스트라이크.name();
+        }
+        return getStrikeWithBall();
+    }
+
+    public boolean isCompleted() {
+        return strikeCount == Rule.MAX_LENGTH.value();
+    }
+
+    private void validatePattern(String number) {
+        String pattern = "^[" + Rule.START_NUMBER.value() + "-" + Rule.END_NUMBER.value() + "]"
+                + "{" + Rule.MAX_LENGTH.value() + "}$";
+
+        if (!number.matches(pattern)) {
+            throw new IllegalArgumentException(ExceptionMessage.NUMBER_FORMAT.message());
+        }
+    }
+
+    private void validateDuplicate(String number) {
+        int[] digitCounts = new int[10];
+
+        for (char c : number.toCharArray()) {
+            int digit = Character.getNumericValue(c);
+            digitCounts[digit]++;
+            if (digitCounts[digit] > 1) {
+                throw new IllegalArgumentException(ExceptionMessage.NUMBER_DUPLICATE.message());
+            }
+        }
+    }
+
+    private List<Integer> stringToIntegerList(String number) {
+        List<Integer> numbers = number.chars()
                 .map(Character::getNumericValue).boxed()
                 .collect(Collectors.toList());
+        return numbers;
+    }
 
-        return numberList;
+    private String getStrikeWithBall(){
+        StringBuilder gameResult = new StringBuilder();
+        
+        if (ballCount > 0) {
+            gameResult.append(ballCount + BallState.볼.name());
+        }
+        if (strikeCount > 0 && ballCount > 0) {
+            gameResult.append(" " + strikeCount + BallState.스트라이크.name());
+        }
+        return gameResult.toString();
     }
 }
 
